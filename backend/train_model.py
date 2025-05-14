@@ -62,7 +62,7 @@ test_loader = DataLoader(test_dataset, batch_size=64)
 
 # Model Setup
 model = NewsClassifierNN(input_dim=100)
-criterion = nn.BCEWithLogitsLoss()  # More stable than sigmoid + BCELoss
+loss_function = nn.BCEWithLogitsLoss()   
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 # Training Loop
@@ -75,7 +75,7 @@ for epoch in range(EPOCHS):
     for batch_X, batch_y in train_loader:
         optimizer.zero_grad()
         outputs = model(batch_X)
-        loss = criterion(outputs, batch_y)
+        loss = loss_function(outputs, batch_y)
         loss.backward()
         optimizer.step()
         epoch_loss += loss.item()
